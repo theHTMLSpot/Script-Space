@@ -9,10 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/react-google-recaptcha": "^2.1.9",
     "next": "15.3.2",
     "nodemailer": "^7.0.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-google-recaptcha": "^3.1.0",
     "resend": "^4.5.1"
   },
   "devDependencies": {
