@@ -3,12 +3,41 @@
 import { useState } from "react";
 
 export default function ContactPage() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // In production, replace with real submission logic (e.g. Formspree/API)
-    setSubmitted(true);
+    setError(null);
+
+    try {
+      const res = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          sender: `${name} <${email}>`,
+          subject,
+          body: message,
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Failed to send message");
+      }
+
+      setSubmitted(true);
+    } catch (err: unknown) {
+      setError(
+        err && err instanceof Error ? err.message : "Something went wrong"
+      );
+    }
   };
 
   return (
@@ -26,6 +55,8 @@ export default function ContactPage() {
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6">
+            {error && <div className="text-red-600 font-medium">{error}</div>}
+
             <div>
               <label
                 htmlFor="name"
@@ -37,7 +68,9 @@ export default function ContactPage() {
                 type="text"
                 id="name"
                 required
-                className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm p-2 text-gray-900 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
 
@@ -52,7 +85,26 @@ export default function ContactPage() {
                 type="email"
                 id="email"
                 required
-                className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="mt-1 block w-full text-gray-900 rounded-md border border-gray-300 shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="subject"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Subject
+              </label>
+              <input
+                type="text"
+                id="subject"
+                required
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
+                className="mt-1 block w-full rounded-md border text-gray-900 border-gray-300 shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
 
@@ -67,7 +119,9 @@ export default function ContactPage() {
                 id="message"
                 rows={5}
                 required
-                className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                className="mt-1 block w-full rounded-md border text-gray-900 border-gray-300 shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
 
