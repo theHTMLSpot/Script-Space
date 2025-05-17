@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import ProductComponent from "./(product)/component";
+import ProductComponent from "../(product)/component";
 
 interface Product {
   id: string; // assuming your data has a unique ID
@@ -13,7 +13,7 @@ interface Product {
   url: string;
 }
 
-export default function Home() {
+export default function Templates() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -57,37 +57,7 @@ export default function Home() {
 
   return (
     <div className="w-[100vw] min-h-[100vh] bg-gray-400 pt-20">
-      <div
-        className="relative w-screen h-screen flex flex-col justify-baseline-center items-baseline"
-        style={{
-          backgroundImage: "url(/images/hero.jpg)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="absolute inset-0 bg-black opacity-70" />
-        <div className="z-10 max-w-4xl p-10">
-          <h1 className="text-5xl md:text-6xl font-extrabold text-white leading-tight">
-            Best Developer Notion Templates
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-300 mt-4 mb-8">
-            The solution for well-organized work.
-          </p>
-          <a
-            href="/templates"
-            className="inline-block bg-blue-600 hover:bg-blue-700 transition-colors text-white font-semibold py-3 px-6 rounded shadow-md"
-          >
-            Browse Templates
-          </a>
-        </div>
-      </div>
-
-      <a
-        href="/templates"
-        className="text-4xl text-gray-200 font-bold m-14 cursor-pointer"
-      >
-        Templates
-      </a>
+      <h1 className="text-4xl font-bold mb-6 text-center">Templates</h1>
       <main
         aria-label="Product listings"
         id="products"
