@@ -68,7 +68,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-black opacity-70" />
         <div className="z-10 max-w-4xl p-10">
           <h1 className="text-5xl md:text-6xl font-extrabold text-white leading-tight">
-            Best Developer Notion Templates
+            ScriptedSpaces
           </h1>
           <p className="text-xl md:text-2xl text-gray-300 mt-4 mb-8">
             The solution for well-organized work.

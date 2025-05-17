@@ -15,9 +15,7 @@ export default function Navbar() {
 
   return (
     <nav className="fixed w-full z-20 flex items-center justify-between p-6 bg-black bg-opacity-50 backdrop-blur-sm">
-      <div className="text-white text-xl font-bold">
-        Ultimate Notion Templates
-      </div>
+      <div className="text-white text-xl font-bold">ScriptedSpaces</div>
 
       <ul className="flex gap-8">
         {links.map((link) => {
