@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState, useRef } from "react";
@@ -51,16 +52,26 @@ export default function ContactPage() {
           sender: `${name} <${email}>`,
           subject,
           body: message,
-          captchaToken: token, // use the local token here
+          captchaToken: token,
         }),
       });
 
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || "Failed to send message.");
+      let responseData: any;
+
+      try {
+        responseData = await res.json();
+        setSubmitted(true);
+      } catch (err) {
+        console.error("Failed to parse response JSON:", err);
+        const raw = await res.text();
+        console.error("Raw response:", raw);
+        throw new Error("Server returned an invalid response.");
       }
 
-      setSubmitted(true);
+      if (!res.ok) {
+        console.error("Error response:", responseData);
+        throw new Error(responseData.error || "Something went wrong.");
+      }
     } catch (err: unknown) {
       setError(
         err instanceof Error
