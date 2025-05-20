@@ -1,3 +1,2 @@
 // Mock CSS imports for Jest
-module.exports = {};
-
+module.exports = {}

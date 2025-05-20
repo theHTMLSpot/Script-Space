@@ -1,52 +1,52 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
+'use client'
 
-import { useState, useRef } from "react";
-import ReCAPTCHA from "react-google-recaptcha";
+import { useState, useRef } from 'react'
+import ReCAPTCHA from 'react-google-recaptcha'
 
 export default function ContactPage() {
-  const SITE_KEY = process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY!;
+  const SITE_KEY = process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY!
 
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null)
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [subject, setSubject] = useState("");
-  const [message, setMessage] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-  const [acceptedPrivacyPolicy, setAcceptedPrivacyPolicy] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [subject, setSubject] = useState('')
+  const [message, setMessage] = useState('')
+  const [submitted, setSubmitted] = useState(false)
+  const [acceptedPrivacyPolicy, setAcceptedPrivacyPolicy] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError(null);
+    e.preventDefault()
+    setError(null)
 
     if (!acceptedPrivacyPolicy) {
-      setError("Please accept the privacy policy before submitting.");
-      return;
+      setError('Please accept the privacy policy before submitting.')
+      return
     }
 
     if (!recaptchaRef.current) {
-      setError("reCAPTCHA not loaded. Please try again later.");
-      return;
+      setError('reCAPTCHA not loaded. Please try again later.')
+      return
     }
 
-    setLoading(true);
+    setLoading(true)
 
     try {
       // Get the token directly into a local variable
-      const token = await recaptchaRef.current.executeAsync();
-      recaptchaRef.current.reset();
+      const token = await recaptchaRef.current.executeAsync()
+      recaptchaRef.current.reset()
 
       if (!token) {
-        throw new Error("Failed to verify reCAPTCHA. Please try again.");
+        throw new Error('Failed to verify reCAPTCHA. Please try again.')
       }
 
-      const res = await fetch("/api/send-email", {
-        method: "POST",
+      const res = await fetch('/api/send-email', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           sender: `${name} <${email}>`,
@@ -54,59 +54,59 @@ export default function ContactPage() {
           body: message,
           captchaToken: token,
         }),
-      });
+      })
 
-      let responseData: any;
+      let responseData: any
 
       try {
-        responseData = await res.json();
-        setSubmitted(true);
+        responseData = await res.json()
+        setSubmitted(true)
       } catch (err) {
-        console.error("Failed to parse response JSON:", err);
-        const raw = await res.text();
-        console.error("Raw response:", raw);
-        throw new Error("Server returned an invalid response.");
+        console.error('Failed to parse response JSON:', err)
+        const raw = await res.text()
+        console.error('Raw response:', raw)
+        throw new Error('Server returned an invalid response.')
       }
 
       if (!res.ok) {
-        console.error("Error response:", responseData);
-        throw new Error(responseData.error || "Something went wrong.");
+        console.error('Error response:', responseData)
+        throw new Error(responseData.error || 'Something went wrong.')
       }
     } catch (err: unknown) {
       setError(
         err instanceof Error
           ? err.message
-          : "Something went wrong. Please try again."
-      );
-      recaptchaRef.current?.reset();
+          : 'Something went wrong. Please try again.'
+      )
+      recaptchaRef.current?.reset()
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   if (submitted) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-8 bg-gray-100">
-        <div className="max-w-xl bg-white p-8 rounded shadow">
-          <h1 className="text-3xl font-bold mb-4 text-green-600">
+      <div className="flex min-h-screen items-center justify-center bg-gray-100 p-8">
+        <div className="max-w-xl rounded bg-white p-8 shadow">
+          <h1 className="mb-4 text-3xl font-bold text-green-600">
             Thanks for your message!
           </h1>
           <p>I’ll get back to you soon.</p>
         </div>
       </div>
-    );
+    )
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 pt-32 p-8">
-      <div className="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-8">
-        <h1 className="text-4xl font-bold mb-6">Contact Me</h1>
-        <p className="text-lg mb-6 text-gray-700">
+    <div className="min-h-screen bg-gray-100 p-8 pt-32">
+      <div className="mx-auto max-w-3xl rounded-lg bg-white p-8 shadow-md">
+        <h1 className="mb-6 text-4xl font-bold">Contact Me</h1>
+        <p className="mb-6 text-lg text-gray-700">
           Got a question, suggestion, or just want to say hello? {"I'm"} always
           open to hearing from you. Use the form below to send me a message.
         </p>
 
-        {error && <div className="text-red-600 font-medium mb-4">{error}</div>}
+        {error && <div className="mb-4 font-medium text-red-600">{error}</div>}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
@@ -122,7 +122,7 @@ export default function ContactPage() {
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm p-2 text-gray-900 focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1 block w-full rounded-md border border-gray-300 p-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500"
             />
           </div>
 
@@ -139,7 +139,7 @@ export default function ContactPage() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 block w-full text-gray-900 rounded-md border border-gray-300 shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1 block w-full rounded-md border border-gray-300 p-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500"
             />
           </div>
 
@@ -156,7 +156,7 @@ export default function ContactPage() {
               required
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
-              className="mt-1 block w-full rounded-md border text-gray-900 border-gray-300 shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1 block w-full rounded-md border border-gray-300 p-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500"
             />
           </div>
 
@@ -173,7 +173,7 @@ export default function ContactPage() {
               required
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              className="mt-1 block w-full rounded-md border text-gray-900 border-gray-300 shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1 block w-full rounded-md border border-gray-300 p-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500"
             />
           </div>
 
@@ -189,7 +189,7 @@ export default function ContactPage() {
               htmlFor="accept-privacy-policy"
               className="text-sm text-gray-700"
             >
-              I accept the{" "}
+              I accept the{' '}
               <a
                 href="/privacy"
                 target="_blank"
@@ -208,14 +208,14 @@ export default function ContactPage() {
           <button
             type="submit"
             disabled={loading}
-            className={`bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded shadow-md transition-colors ${
-              loading ? "opacity-50 cursor-not-allowed" : ""
+            className={`rounded bg-blue-600 px-6 py-2 font-semibold text-white shadow-md transition-colors hover:bg-blue-700 ${
+              loading ? 'cursor-not-allowed opacity-50' : ''
             }`}
           >
-            {loading ? "Sending..." : "Send Message"}
+            {loading ? 'Sending...' : 'Send Message'}
           </button>
         </form>
       </div>
     </div>
-  );
+  )
 }
