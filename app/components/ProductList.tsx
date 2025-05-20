@@ -78,7 +78,7 @@ export default function ProductList({
         <div className="absolute inset-0 bg-black opacity-70" />
         <div className="z-10 max-w-4xl p-10">
           <h1 className="text-5xl font-extrabold leading-tight text-white md:text-6xl">
-            ScriptedSpaces
+            Script Space
           </h1>
           <p className="mb-8 mt-4 text-xl text-gray-300 md:text-2xl">
             The solution for well-organized work.

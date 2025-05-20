@@ -59,7 +59,7 @@ export default function Navbar() {
 
   return (
     <nav className="fixed z-20 flex w-full items-center justify-between bg-black bg-opacity-50 p-6 backdrop-blur-sm">
-      <div className="text-xl font-bold text-white">ScriptedSpaces</div>
+      <div className="text-xl font-bold text-white">Script Space</div>
 
       <div className="relative" ref={menuRef}>
         {showingHamburger && (
