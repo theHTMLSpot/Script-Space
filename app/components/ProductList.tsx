@@ -13,7 +13,11 @@ interface Product {
   url: string;
 }
 
-export default function ProductList({ initialProducts = [] }: { initialProducts?: Product[] }) {
+export default function ProductList({
+  initialProducts = [],
+}: {
+  initialProducts?: Product[];
+}) {
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [loading, setLoading] = useState(initialProducts.length === 0);
   const [error, setError] = useState<string | null>(null);
@@ -24,7 +28,7 @@ export default function ProductList({ initialProducts = [] }: { initialProducts?
       setLoading(false);
       return;
     }
-    
+
     async function fetchProducts() {
       try {
         setLoading(true);
@@ -98,7 +102,6 @@ export default function ProductList({ initialProducts = [] }: { initialProducts?
         aria-label="Product listings"
         id="products"
         className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 p-5 w-full min-h-screen"
-        style={{ gridAutoRows: "50vh" }}
       >
         {products.map((product) => (
           <ProductComponent
@@ -115,4 +118,3 @@ export default function ProductList({ initialProducts = [] }: { initialProducts?
     </div>
   );
 }
-

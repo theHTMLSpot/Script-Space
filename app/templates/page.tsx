@@ -62,7 +62,6 @@ export default function Templates() {
         aria-label="Product listings"
         id="products"
         className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 p-5 w-full min-h-screen "
-        style={{ gridAutoRows: "50vh" }}
       >
         {products.map((product) => (
           <ProductComponent
