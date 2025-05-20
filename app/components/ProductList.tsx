@@ -97,12 +97,17 @@ export default function ProductList({
         id="products"
         className="grid min-h-screen w-full grid-cols-1 gap-5 p-5 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
       >
-        <a
-          href="/templates"
-          className="cursor-pointer text-4xl font-bold text-gray-200"
-        >
-          Templates
-        </a>
+        {/* Full-width first row */}
+        <div className="col-span-full">
+          <a
+            href="/templates"
+            className="block w-full cursor-pointer text-4xl font-bold text-gray-200"
+          >
+            Templates
+          </a>
+        </div>
+
+        {/* Product cards */}
         {products.map((product) => (
           <ProductComponent
             key={product.id}
