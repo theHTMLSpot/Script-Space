@@ -3,30 +3,34 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { ChevronLeft, ChevronRight } from 'lucide-react' // ✅ Lucide icons
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 export default function ProductComponent({
   title,
-  key,
   description,
   price,
   currency,
   images,
   url,
+  buyUrl,
 }: {
   title: string
-  key: string
   description: string
   price: number
   currency: string
   images: string[]
   url: string
+  buyUrl: string
 }) {
-  const [currentImage, setCurrentImage] = useState<number>(0)
+  const [currentImage, setCurrentImage] = useState(0)
   const router = useRouter()
 
   const handleCardClick = () => {
-    router.push(url)
+    if (typeof url === 'string' && !url.startsWith('http')) {
+      router.push(`/templates/${url}`) // ✅ FIXED path
+    } else if (url.startsWith('http')) {
+      window.open(url, '_blank')
+    }
   }
 
   const prevImage = (e: React.MouseEvent) => {
@@ -44,7 +48,6 @@ export default function ProductComponent({
       onClick={handleCardClick}
       className="h-full w-full cursor-pointer rounded-xl border-2 border-gray-500 bg-gray-200 p-4 transition hover:shadow-lg"
       role="button"
-      key={key}
       tabIndex={0}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -82,7 +85,7 @@ export default function ProductComponent({
       </p>
 
       <a
-        href={url}
+        href={buyUrl}
         className="mt-4 inline-block rounded bg-orange-400 px-4 py-2 text-white"
         onClick={(e) => e.stopPropagation()}
         target="_blank"

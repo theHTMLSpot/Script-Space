@@ -116,7 +116,8 @@ export default function ProductList({
             price={Number(product.price)}
             currency={product.currency}
             images={product.images}
-            url={product.url}
+            url={product.id !== undefined ? product.id.toString() : ''}
+            buyUrl={product.url}
           />
         ))}
       </main>
