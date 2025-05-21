@@ -1,37 +1,53 @@
 {
   "frontend": {
-    "id": 1,
+    "id": 0,
     "name": "Ultimate Frontend Notion Template — From Idea to Launch",
     "description": "The Ultimate Frontend Notion Template for Web Developers and Designers",
     "url": "https://gumroad.com/checkout?product=sydkrc&quantity=1",
-    "images": ["/images/frontend1.png", "/images/frontend2.png"],
+    "images": [
+      "/images/frontend1.png",
+      "/images/frontend2.png",
+      "/images/frontend3.png"
+    ],
     "price": "9",
     "currency": "USD"
   },
   "backend": {
-    "id": 2,
+    "id": 1,
     "name": "Ultimate Backend Notion Template — From Idea to Launch",
     "description": "The Ultimate Backend Notion Template for Web Developers and Designers",
     "url": "https://gumroad.com/checkout?product=dqowr&quantity=1",
-    "images": ["/images/backend1.png", "/images/backend2.png"],
+    "images": [
+      "/images/backend1.png",
+      "/images/backend2.png",
+      "/images/backend3.png"
+    ],
     "price": "9",
     "currency": "USD"
   },
   "fullstack": {
-    "id": 3,
+    "id": 2,
     "name": "Ultimate Fullstack Notion Template — From Idea to Launch",
     "description": "The Ultimate Fullstack Notion Template for Web Developers and Designers",
     "url": "https://gumroad.com/checkout?product=pftiib&quantity=1&referrer=http%3A%2F%2Flocalhost%3A3000%2F",
-    "images": ["/images/fullstack1.png", "/images/fullstack2.png"],
+    "images": [
+      "/images/fullstack1.png",
+      "/images/fullstack2.png",
+      "/images/fullstack3.png"
+    ],
     "price": "15",
     "currency": "USD"
   },
   "GameDev": {
-    "id": 4,
+    "id": 3,
     "name": "Ultimate GameDev Notion Template — From Idea to Launch",
     "description": "The Ultimate GameDev Notion Template for Web Developers and Designers",
     "url": "https://gumroad.com/checkout?product=cvzrmz&quantity=1",
-    "images": ["/images/gamedev1.png", "/images/gamedev2.png"],
+    "images": [
+      "/images/gamedev1.png",
+      "/images/gamedev2.png",
+      "/images/gamedev3.png"
+    ],
     "price": "11",
     "currency": "USD"
   }
